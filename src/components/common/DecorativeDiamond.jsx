@@ -1,5 +1,4 @@
 import React, { useMemo } from 'react';
-import { motion } from 'framer-motion';
 
 import img1 from '../../assets/diamond.png';
 import img2 from '../../assets/diamond_gold.png';
@@ -11,38 +10,26 @@ const IMAGES = {
   3: img3
 };
 
+// Fully static - no animation, no IntersectionObserver, no Framer Motion overhead
 const DecorativeDiamond = ({ 
   type = null, 
   className = "", 
-  yRange = 15, 
-  rotateRange = 10, 
-  baseDuration = 10, 
-  baseDelay = 0 
+  rotateRange = 10,
 }) => {
   const selectedType = useMemo(() => {
     return type ? type : (Math.floor(Math.random() * 3) + 1);
   }, [type]);
   
-  const animDuration = useMemo(() => baseDuration + (Math.random() * 5), [baseDuration]);
-  const animDelay = useMemo(() => baseDelay + (Math.random() * 3), [baseDelay]);
-  const yMovement = useMemo(() => [-yRange, yRange, -yRange], [yRange]);
-  const rotMovement = useMemo(() => [-rotateRange, rotateRange, -rotateRange], [rotateRange]);
-
+  const rotation = useMemo(() => Math.random() * rotateRange * 2 - rotateRange, [rotateRange]);
   const imgSrc = IMAGES[selectedType];
 
   return (
-    <motion.div
-      animate={{ y: yMovement, rotate: rotMovement }}
-      transition={{ 
-        duration: animDuration, 
-        repeat: Infinity, 
-        ease: "easeInOut",
-        delay: animDelay
-      }}
-      className={`absolute pointer-events-none drop-shadow-2xl z-0 ${className}`}
+    <div
+      style={{ transform: `rotate(${rotation}deg)` }}
+      className={`absolute pointer-events-none drop-shadow-xl z-0 perf-gpu ${className}`}
     >
-      <img src={imgSrc} alt="Diamond Ornament" className="w-full h-full object-contain" />
-    </motion.div>
+      <img src={imgSrc} alt="" aria-hidden="true" className="w-full h-full object-contain" loading="lazy" />
+    </div>
   );
 };
 

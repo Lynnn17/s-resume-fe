@@ -71,19 +71,19 @@ export default function ContactSection() {
       id="contact"
       className="py-28 bg-gradient-to-t from-[#FCF7F6] to-[#F1DADB] relative overflow-hidden"
     >
-      <div className="absolute bottom-0 right-0 w-80 h-80 bg-gradient-to-tl from-[#DCA8A1]/40 to-transparent rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute top-0 left-0 w-60 h-60 bg-gradient-to-br from-[#F8EAE8]/60 to-transparent rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 right-0 w-80 h-80 bg-gradient-to-tl from-[#DCA8A1]/30 to-transparent rounded-full blur-[40px] pointer-events-none" />
+      <div className="absolute top-0 left-0 w-60 h-60 bg-gradient-to-br from-[#F8EAE8]/50 to-transparent rounded-full blur-[40px] pointer-events-none" />
 
       {/* Unique SVG Concentric Ripples */}
       <div className="absolute bottom-[2%] left-[-5%] w-[400px] h-[400px] pointer-events-none opacity-20">
         <svg viewBox="0 0 200 200" className="w-full h-full text-[#bd9585]">
           <g fill="none" stroke="currentColor" strokeWidth="1.2">
-            {[...Array(6)].map((_, i) => (
+            {[...Array(3)].map((_, i) => (
               <circle
                 key={i}
                 cx="0"
                 cy="200"
-                r={40 + i * 25}
+                r={40 + i * 50}
                 strokeDasharray={i % 2 === 0 ? "5 5" : "none"}
               />
             ))}
@@ -231,7 +231,7 @@ export default function ContactSection() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="md:col-span-2 space-y-6"
           >
-            <div className="bg-white/40 backdrop-blur-xl border border-white/60 shadow-[0_20px_40px_-15px_rgba(150,90,90,0.1),_inset_0_0_20px_rgba(255,255,255,0.5)] rounded-3xl p-7">
+            <div className="bg-white/95 border border-stone-100 shadow-[0_4px_20px_rgba(150,90,90,0.08)] rounded-3xl p-7">
               <div className="space-y-5">
                 <div className="flex items-start gap-3">
                   <div className="p-2 rounded-xl bg-white/70 shadow-sm mt-0.5">

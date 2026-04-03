@@ -5,11 +5,10 @@ import DecorativeDiamond from '../common/DecorativeDiamond';
 import { getExperiences } from '../../services/api';
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 0 },
   visible: (i) => ({
     opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, delay: i * 0.15 },
+    transition: { duration: 0.4, delay: i * 0.1 },
   }),
 };
 
@@ -46,15 +45,7 @@ export default function ExperienceSection() {
   return (
     <section id="experience" className="py-28 bg-gradient-to-t from-[#FCF7F6] via-[#FDF3F1] to-[#F1DADB] relative overflow-hidden">
       
-      {/* Ambience & SVGs */}
-      <div className="absolute inset-0 z-0 opacity-10 pointer-events-none mix-blend-overlay">
-        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-          <filter id="noiseFilterExp">
-            <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/>
-          </filter>
-          <rect width="100%" height="100%" filter="url(#noiseFilterExp)"/>
-        </svg>
-      </div>
+      {/* Ambience & SVGs - Optimized */}
       <div className="absolute top-0 left-1/2 w-[500px] h-[500px] bg-gradient-to-b from-[#EFC8C2]/20 to-transparent rounded-full blur-[100px] pointer-events-none transform -translate-x-1/2" />
       
       {/* Unique SVG Winding Timeline Path */}
@@ -131,7 +122,7 @@ export default function ExperienceSection() {
                   </div>
 
                   {/* Content card */}
-                  <div className="bg-white rounded-2xl p-6 border border-stone-100 shadow-sm hover:shadow-md hover:shadow-stone-100/40 transition-all duration-300">
+                  <div className="bg-white rounded-2xl p-6 border border-stone-100 shadow-sm hover:shadow-md hover:shadow-stone-100/40 transition-shadow duration-300 perf-gpu">
                     <div className="flex flex-wrap items-center gap-3 mb-2">
                       <h3 className="text-base font-semibold text-stone-800">{item.title}</h3>
                       <span className="text-[11px] px-3 py-1 rounded-full bg-stone-50 text-stone-400 font-medium">

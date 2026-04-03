@@ -44,28 +44,12 @@ export default function PortfolioSection() {
       id="portfolio"
       className="py-28 bg-gradient-to-bl from-[#FCF7F6] via-[#F8EAE8] to-[#F1DADB] relative overflow-hidden"
     >
-      {/* Texture Overlay */}
-      <div className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none mix-blend-overlay">
-        <svg
-          viewBox="0 0 200 200"
-          xmlns="http://www.w3.org/2000/svg"
-          className="w-full h-full"
-        >
-          <filter id="noiseFilter3">
-            <feTurbulence
-              type="fractalNoise"
-              baseFrequency="0.75"
-              numOctaves="3"
-              stitchTiles="stitch"
-            />
-          </filter>
-          <rect width="100%" height="100%" filter="url(#noiseFilter3)" />
-        </svg>
-      </div>
+      {/* Texture Overlay - Optimized */}
+      <div className="absolute inset-0 z-0 opacity-[0.015] pointer-events-none bg-noise-subtle" />
 
-      {/* Ambient background glows */}
-      <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-gradient-to-tr from-[#EFC8C2]/30 to-transparent rounded-full blur-[100px] pointer-events-none transform -translate-y-1/2 -translate-x-1/2" />
-      <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-gradient-to-tl from-[#EAD0CC]/40 to-transparent rounded-full blur-[120px] pointer-events-none opacity-80 mix-blend-multiply" />
+      {/* Ambient background glows - NO mix-blend */}
+      <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-gradient-to-tr from-[#EFC8C2]/30 to-transparent rounded-full blur-[50px] pointer-events-none transform -translate-y-1/2 -translate-x-1/2" />
+      <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-gradient-to-tl from-[#EAD0CC]/30 to-transparent rounded-full blur-[50px] pointer-events-none opacity-80" />
 
       {/* Unique SVG Path: Geometric Grid Wavy */}
       <div className="absolute top-[5%] left-[-10%] w-[500px] h-[500px] pointer-events-none opacity-20 transform -rotate-12">
@@ -247,20 +231,18 @@ export default function PortfolioSection() {
               filtered.map((project, i) => (
                 <motion.div
                   key={project.id}
-                  initial={{ opacity: 0, y: 30, scale: 0.95 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: -20, scale: 0.95 }}
-                  transition={{
-                    duration: 0.5,
-                    delay: i * 0.1,
-                    ease: "easeOut",
-                  }}
-                  className="group cursor-pointer"
-                  onClick={() =>
-                    project.demo_url && window.open(project.demo_url, "_blank")
-                  }
+                  key={project.id || project.title}
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.5, delay: i * 0.1 }}
+                  className="group"
                 >
-                  <div className="relative rounded-[2rem] overflow-hidden bg-white/30 backdrop-blur-2xl border border-white/60 shadow-[0_20px_40px_-15px_rgba(150,90,90,0.15),_inset_0_0_20px_rgba(255,255,255,0.7)] hover:shadow-[0_30px_60px_-15px_rgba(185,122,112,0.3),_inset_0_0_20px_rgba(255,255,255,0.8)] hover:-translate-y-2 transition-all duration-500 p-3 sm:p-4">
+                  <div className="relative rounded-[2rem] overflow-hidden bg-white/90 border border-stone-100 shadow-[0_4px_20px_rgba(150,90,90,0.08)] hover:shadow-[0_12px_30px_rgba(185,122,112,0.15)] hover:-translate-y-1 transition-all duration-300 p-3 sm:p-4 perf-gpu will-change-transform"
+                    onClick={() =>
+                      project.demo_url && window.open(project.demo_url, "_blank")
+                    }
+                  >
                     {/* Image Frame */}
                     <div className="aspect-[4/3] rounded-[1.5rem]  overflow-hidden bg-gradient-to-br from-[#FDF9F8] to-[#EAD0CC] shadow-[inset_0_4px_20px_rgba(100,60,60,0.1)] relative">
                       <img

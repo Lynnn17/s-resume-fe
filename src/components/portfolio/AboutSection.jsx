@@ -13,7 +13,7 @@ const interests = [
     icon: Palette,
     label: "UI/UX Design",
     color:
-      "bg-gradient-to-r from-[#211B1A] to-[#3B302F] text-[#F8F3F1] border border-[#524442] shadow-[0_10px_20px_rgba(43,35,34,0.3)]",
+      "bg-gradient-to-r from-[#211B1A] to-[#3B302F] text-[#F8F3F1] border border-[#524442]",
   },
   {
     icon: Lightbulb,
@@ -32,12 +32,12 @@ const interests = [
 import DecorativeDiamond from "../common/DecorativeDiamond";
 import { getProfile } from "../../services/api";
 
+// Simplified: fade only, no y displacement — much lighter on GPU
 const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
+  hidden: { opacity: 0 },
   visible: (i) => ({
     opacity: 1,
-    y: 0,
-    transition: { duration: 0.8, delay: i * 0.15, ease: "easeOut" },
+    transition: { duration: 0.5, delay: i * 0.1, ease: "easeOut" },
   }),
 };
 
@@ -62,34 +62,14 @@ export default function AboutSection() {
       id="about"
       className="py-28 bg-gradient-to-br from-[#FCF7F6] to-[#F1DADB] relative overflow-hidden"
     >
-      {/* Texture Overlay: Brushed Metal */}
-      <div className="absolute inset-0 z-0 opacity-[0.04] pointer-events-none mix-blend-multiply">
-        <svg
-          viewBox="0 0 400 400"
-          xmlns="http://www.w3.org/2000/svg"
-          className="w-full h-full preserve-3d"
-        >
-          <filter id="noiseFilterAbout">
-            <feTurbulence
-              type="fractalNoise"
-              baseFrequency="0.01 0.8"
-              numOctaves="4"
-              stitchTiles="stitch"
-            />
-            <feColorMatrix type="saturate" values="0" />
-            <feComponentTransfer>
-              <feFuncA type="linear" slope="0.5" />
-            </feComponentTransfer>
-          </filter>
-          <rect width="100%" height="100%" filter="url(#noiseFilterAbout)" />
-        </svg>
-      </div>
+      {/* Texture Overlay: Grainy Noise - Optimized */}
+      <div className="absolute inset-0 z-0 opacity-[0.015] pointer-events-none bg-noise-subtle" />
 
-      {/* Subtle shape & glows */}
-      <div className="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] bg-gradient-to-bl from-[#EAD0CC]/60 to-transparent rounded-full blur-[80px] pointer-events-none mix-blend-multiply" />
-      <div className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-gradient-to-tr from-[#EFC8C2]/40 to-transparent rounded-full blur-[100px] pointer-events-none mix-blend-multiply" />
+      {/* Subtle glows - NO mix-blend-multiply (performance killer) */}
+      <div className="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] bg-gradient-to-bl from-[#EAD0CC]/40 to-transparent rounded-full blur-[60px] pointer-events-none opacity-60" />
+      <div className="absolute bottom-[-10%] left-[-10%] w-[400px] h-[400px] bg-gradient-to-tr from-[#EFC8C2]/30 to-transparent rounded-full blur-[60px] pointer-events-none opacity-50" />
 
-      {/* Large Decorative Diamonds in Background */}
+      {/* Decorative Diamonds */}
       <DecorativeDiamond
         type={1}
         className="top-[10%] left-[5%] w-32 h-32 lg:w-48 lg:h-48"
@@ -103,8 +83,6 @@ export default function AboutSection() {
         rotateRange={-10}
         delay={1}
       />
-
-      {/* Extra Small Diamonds (Rame) */}
       <DecorativeDiamond
         type={2}
         className="top-[25%] left-[25%] w-8 h-8"
@@ -134,28 +112,6 @@ export default function AboutSection() {
         delay={0.8}
       />
 
-      {/* Complex Spirograph Behind Stats Card */}
-      <div
-        className="absolute top-[10%] right-[-10%] w-[800px] h-[800px] opacity-25 mix-blend-multiply pointer-events-none animate-spin-slow"
-        style={{ animationDuration: "240s" }}
-      >
-        <svg viewBox="0 0 1000 1000" className="w-full h-full text-[#bd9585]">
-          <g fill="none" stroke="currentColor" strokeWidth="1.2">
-            {[...Array(24)].map((_, i) => (
-              <ellipse
-                key={`ea-${i}`}
-                cx="500"
-                cy="500"
-                rx="400"
-                ry="120"
-                transform={`rotate(${i * 15} 500 500)`}
-              />
-            ))}
-            <circle cx="500" cy="500" r="350" strokeWidth="1.8" />
-          </g>
-        </svg>
-      </div>
-
       <div className="relative z-10 max-w-6xl mx-auto px-6">
         <motion.div
           initial="hidden"
@@ -168,7 +124,7 @@ export default function AboutSection() {
             <motion.p
               variants={fadeUp}
               custom={0}
-              className="text-xs sm:text-sm tracking-[0.25em] uppercase text-[#8F746F] mb-5 font-medium drop-shadow-sm flex items-center gap-3"
+              className="text-xs sm:text-sm tracking-[0.25em] uppercase text-[#8F746F] mb-5 font-medium flex items-center gap-3"
             >
               <span className="w-8 h-[1px] bg-[#D1A6A0]"></span>
               Tentang Saya
@@ -176,15 +132,11 @@ export default function AboutSection() {
             <motion.h2
               variants={fadeUp}
               custom={1}
-              className="text-5xl sm:text-6xl font-light text-[#4A3D3B] mb-8 leading-[1.1] drop-shadow-md"
+              className="text-5xl sm:text-6xl font-light text-[#4A3D3B] mb-8 leading-[1.1]"
             >
               Membangun hal-hal{" "}
-              <span className="font-bold bg-gradient-to-tr from-[#8E4D44] via-[#FCE9E6] to-[#A26057] bg-clip-text text-transparent filter drop-shadow-[0_0_20px_rgba(218,168,161,0.6)] relative inline-block">
+              <span className="font-bold bg-gradient-to-tr from-[#8E4D44] via-[#FCE9E6] to-[#A26057] bg-clip-text text-transparent">
                 indah
-                <div
-                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-30 mix-blend-overlay animate-shimmer pointer-events-none"
-                  style={{ backgroundSize: "200% 100%" }}
-                />
               </span>{" "}
               di dunia digital
             </motion.h2>
@@ -230,13 +182,13 @@ export default function AboutSection() {
             {/* Interest badges */}
             <motion.div
               variants={fadeUp}
-              custom={4}
+              custom={3}
               className="flex flex-wrap gap-4"
             >
               {interests.map((item) => (
                 <div
                   key={item.label}
-                  className={`flex items-center gap-2.5 px-6 py-3.5 rounded-full ${item.color} text-sm font-medium transition-transform duration-500 hover:scale-105 backdrop-blur-md`}
+                  className={`flex items-center gap-2.5 px-6 py-3.5 rounded-full ${item.color} text-sm font-medium transition-transform duration-300 hover:scale-105`}
                 >
                   <item.icon size={16} />
                   {item.label}
@@ -248,21 +200,15 @@ export default function AboutSection() {
           {/* Right column - Quick stats */}
           <motion.div
             variants={fadeUp}
-            custom={5}
-            className="md:col-span-2 relative group mt-8 md:mt-0"
+            custom={4}
+            className="md:col-span-2 relative group mt-8 md:mt-0 perf-gpu will-change-transform"
           >
-            {/* Soft backdrop glow behind card */}
-            <div className="absolute inset-0 bg-gradient-to-tr from-[#8E4D44]/30 to-[#DCA8A1]/40 rounded-[3.2rem] blur-xl opacity-70 group-hover:opacity-100 transition-opacity duration-700" />
-
             {/* 3D Metallic Rose Gold Frame Wrapper */}
-            <div className="relative bg-gradient-to-br from-[#DCA8A1] via-[#B97A70] to-[#E8BDB4] p-[7px] rounded-[3.2rem] shadow-[0_30px_60px_-15px_rgba(142,77,68,0.4)] group-hover:-translate-y-2 transition-transform duration-700">
-              {/* Inner Frosted Glass Card */}
-              <div className="w-full h-full rounded-[3rem] overflow-hidden shadow-[inset_0_0_40px_rgba(255,255,255,1)] bg-gradient-to-b from-[#FFF5F3]/90 to-[#FDF3F1]/80 backdrop-blur-2xl p-10 relative">
-                {/* Central Soft Glow Burst */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-white/90 blur-[40px] rounded-full pointer-events-none" />
-
+            <div className="relative bg-gradient-to-br from-[#DCA8A1] via-[#B97A70] to-[#E8BDB4] p-[7px] rounded-[3.2rem] shadow-[0_30px_60px_-15px_rgba(142,77,68,0.4)] group-hover:-translate-y-2 transition-transform duration-500">
+              {/* Inner Card - reduced backdrop blur */}
+              <div className="w-full h-full rounded-[3rem] overflow-hidden bg-gradient-to-b from-[#FFF5F3]/95 to-[#FDF3F1]/90 backdrop-blur-sm p-10 relative">
                 <div className="relative z-10">
-                  {/* Grid Lines (Cross) */}
+                  {/* Grid Lines */}
                   <div className="absolute top-[48%] left-4 right-4 h-[1px] bg-gradient-to-r from-transparent via-[#Cba29c]/50 to-transparent" />
                   <div className="absolute left-1/2 top-4 bottom-[20%] w-[1px] bg-gradient-to-b from-transparent via-[#Cba29c]/50 to-transparent" />
 
@@ -280,7 +226,7 @@ export default function AboutSection() {
                         number: import.meta.env.VITE_STATS_CLIENTS || "10+",
                         label: "Klien Senang",
                       },
-                    ].map((stat, i) => (
+                    ].map((stat) => (
                       <div
                         key={stat.label}
                         className="text-center relative pt-2"
@@ -314,7 +260,7 @@ export default function AboutSection() {
               </div>
             </div>
 
-            {/* Surrounding Decorative Diamonds around Stats */}
+            {/* Surrounding Decorative Diamonds */}
             <DecorativeDiamond
               type={2}
               className="-bottom-8 -left-10 w-20 h-20"

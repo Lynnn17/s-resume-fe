@@ -12,12 +12,12 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-[#faf9f7]">
       <Navbar />
-      <HeroSection />
-      <AboutSection />
-      <PortfolioSection />
-      <SkillsSection />
-      <ExperienceSection />
-      <ContactSection />
+      <div className="contain-paint"><HeroSection /></div>
+      <div className="contain-paint"><AboutSection /></div>
+      <div className="contain-paint"><PortfolioSection /></div>
+      <div className="contain-paint"><SkillsSection /></div>
+      <div className="contain-paint"><ExperienceSection /></div>
+      <div className="contain-paint"><ContactSection /></div>
       <Footer />
     </div>
   );

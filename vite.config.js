@@ -22,6 +22,11 @@ export default defineConfig(({ mode }) => {
         },
       },
     },
+    preview: {
+      port: 6666,
+      host: true,
+      allowedHosts: ["portofolio.syava-project.my.id"],
+    },
     plugins: [
       base44({
         // Support for legacy code that imports the base44 SDK with @/integrations, @/entities, etc.

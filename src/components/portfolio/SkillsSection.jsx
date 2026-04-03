@@ -24,11 +24,10 @@ const colorMap = {
 };
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
+  hidden: { opacity: 0 },
   visible: (i) => ({
     opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, delay: i * 0.1 },
+    transition: { duration: 0.4, delay: i * 0.05 },
   }),
 };
 
@@ -78,8 +77,8 @@ export default function SkillsSection() {
         </svg>
 
         <div className="absolute top-[-5%] left-[-5%] w-[400px] h-[400px] rounded-full border-[1.5px] border-[#E0BFB8]/30 opacity-60 transform rotate-12 scale-x-150 blur-[1px]" />
-        <div className="absolute top-1/2 right-0 w-96 h-96 bg-gradient-to-bl from-[#E0BFB8]/20 to-transparent rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-10 left-10 w-72 h-72 bg-gradient-to-tr from-[#C07C88]/10 to-transparent rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute top-1/2 right-0 w-96 h-96 bg-gradient-to-bl from-[#E0BFB8]/20 to-transparent rounded-full blur-[40px] pointer-events-none" />
+        <div className="absolute bottom-10 left-10 w-72 h-72 bg-gradient-to-tr from-[#C07C88]/10 to-transparent rounded-full blur-[40px] pointer-events-none" />
         
         {/* Decorative Diamonds */}
         <DecorativeDiamond type={1} className="top-[5%] right-[10%] w-24 h-24" yRange={15} rotateRange={-10} delay={0.2} />
@@ -129,7 +128,7 @@ export default function SkillsSection() {
                   key={cat.id || cat.name}
                   variants={fadeUp}
                   custom={catIdx}
-                  className={`rounded-3xl bg-gradient-to-br ${theme.bg} border border-white/60 p-7 hover:shadow-lg hover:shadow-stone-100/40 transition-all duration-500`}
+                  className={`rounded-3xl bg-gradient-to-br ${theme.bg} border border-white/60 p-7 hover:shadow-lg hover:shadow-stone-100/40 transition-all duration-300 perf-gpu will-change-transform`}
                 >
                   <div className="flex items-center gap-3 mb-6">
                     <div className="p-2.5 rounded-xl bg-white/70 shadow-sm">
@@ -146,11 +145,8 @@ export default function SkillsSection() {
                           <span className="text-xs text-stone-400 font-medium">{skill.proficiency}%</span>
                         </div>
                         <div className="h-1.5 bg-white/70 rounded-full overflow-hidden">
-                          <motion.div
-                            initial={{ width: 0 }}
-                            whileInView={{ width: `${skill.proficiency}%` }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 1, delay: 0.3 + catIdx * 0.1 }}
+                          <div
+                            style={{ width: `${skill.proficiency}%` }}
                             className={`h-full rounded-full ${theme.accent}`}
                           />
                         </div>

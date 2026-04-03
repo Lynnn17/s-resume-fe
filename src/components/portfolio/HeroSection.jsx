@@ -36,32 +36,16 @@ export default function HeroSection() {
       id="hero"
       className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-[#FCF7F6] via-[#F8EAE8] to-[#F1DADB]"
     >
-      {/* Texture: Grainy Noise Overlay */}
-      <div className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none mix-blend-overlay">
-        <svg
-          viewBox="0 0 200 200"
-          xmlns="http://www.w3.org/2000/svg"
-          className="w-full h-full"
-        >
-          <filter id="noiseFilter">
-            <feTurbulence
-              type="fractalNoise"
-              baseFrequency="0.85"
-              numOctaves="3"
-              stitchTiles="stitch"
-            />
-          </filter>
-          <rect width="100%" height="100%" filter="url(#noiseFilter)" />
-        </svg>
-      </div>
+      {/* Texture: Grainy Noise Overlay - Optimized to use background image instead of direct SVG filter */}
+      <div className="absolute inset-0 z-0 opacity-[0.015] pointer-events-none mix-blend-overlay bg-noise-subtle" />
 
-      {/* Background Ambience & Soft Glows */}
+      {/* Background Ambience & Soft Glows - NO mix-blend for performance */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
-        <div className="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] bg-gradient-to-br from-[#EAD0CC]/40 to-transparent rounded-full blur-[100px] opacity-50" />
-        <div className="absolute bottom-[-5%] left-[-5%] w-[400px] h-[400px] bg-gradient-to-tr from-[#EAD0CC]/30 to-transparent rounded-full blur-[100px] opacity-40" />
+        <div className="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] bg-gradient-to-br from-[#EAD0CC]/40 to-transparent rounded-full blur-[50px] opacity-50" />
+        <div className="absolute bottom-[-5%] left-[-5%] w-[400px] h-[400px] bg-gradient-to-tr from-[#EAD0CC]/30 to-transparent rounded-full blur-[50px] opacity-40" />
 
-        {/* Abstract 3D Flowing Silk Waves */}
-        <div className="absolute inset-0 z-0 opacity-20 mix-blend-multiply pointer-events-none">
+        {/* Abstract 3D Flowing Silk Waves - Simplified, no blend mode */}
+        <div className="absolute inset-0 z-0 opacity-15 pointer-events-none">
           <svg
             viewBox="0 0 1440 800"
             className="w-full h-full object-cover transform scale-100"
@@ -124,7 +108,7 @@ export default function HeroSection() {
         <motion.div
           animate={{ y: [0, -15, 0] }}
           transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-[20%] left-[8%] w-10 h-10 rounded-full shadow-[0_10px_20px_rgba(180,100,100,0.3)] bg-gradient-to-tr from-[#9c635e] via-[#dfaca5] to-[#fcf5f4] opacity-90 blur-[0.5px] before:absolute before:inset-[2px] before:rounded-full before:bg-gradient-to-b before:from-white/50 before:to-transparent z-0"
+          className="absolute top-[20%] left-[8%] w-10 h-10 rounded-full shadow-[0_10px_20px_rgba(180,100,100,0.3)] bg-gradient-to-tr from-[#9c635e] via-[#dfaca5] to-[#fcf5f4] opacity-90 blur-[0.5px] before:absolute before:inset-[2px] before:rounded-full before:bg-gradient-to-b before:from-white/50 before:to-transparent z-0 perf-gpu will-change-transform"
         />
         <motion.div
           animate={{ y: [0, 20, 0] }}
@@ -134,12 +118,12 @@ export default function HeroSection() {
             ease: "easeInOut",
             delay: 1,
           }}
-          className="absolute top-[65%] left-[45%] w-6 h-6 rounded-full shadow-[0_5px_15px_rgba(180,100,100,0.4)] bg-gradient-to-tr from-[#69423E] via-[#BA766E] to-[#F2E0DD] opacity-80 z-0"
+          className="absolute top-[65%] left-[45%] w-6 h-6 rounded-full shadow-[0_5px_15px_rgba(180,100,100,0.4)] bg-gradient-to-tr from-[#69423E] via-[#BA766E] to-[#F2E0DD] opacity-80 z-0 perf-gpu will-change-transform"
         />
         <motion.div
           animate={{ y: [0, -25, 0] }}
           transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute bottom-[10%] right-[15%] w-14 h-14 rounded-full shadow-[0_15px_30px_rgba(180,100,100,0.25)] bg-gradient-to-bl from-[#C18C83] via-[#E2BAB5] to-[#F9EBE9] opacity-90 blur-[1px] z-0"
+          className="absolute bottom-[10%] right-[15%] w-14 h-14 rounded-full shadow-[0_15px_30px_rgba(180,100,100,0.25)] bg-gradient-to-bl from-[#C18C83] via-[#E2BAB5] to-[#F9EBE9] opacity-90 blur-[1px] z-0 perf-gpu will-change-transform"
         />
 
         {/* Large Ornaments */}
@@ -308,7 +292,7 @@ export default function HeroSection() {
               </svg>
 
               {/* Glassmorphism Picture Frame */}
-              <div className="relative z-10 w-[240px] h-[240px] sm:w-[280px] sm:h-[280px] rounded-[2rem] p-3 sm:p-4 bg-gradient-to-br from-white/40 to-white/10 backdrop-blur-2xl border border-white/60 shadow-[0_30px_60px_-15px_rgba(150,90,90,0.6),_inset_0_0_30px_rgba(255,255,255,0.7)] group">
+              <div className="relative z-10 w-[240px] h-[240px] sm:w-[280px] sm:h-[280px] rounded-[2rem] p-3 sm:p-4 bg-gradient-to-br from-white/40 to-white/10 backdrop-blur-2xl border border-white/60 shadow-[0_30px_60px_-15px_rgba(150,90,90,0.6),_inset_0_0_30px_rgba(255,255,255,0.7)] group perf-gpu will-change-transform">
                 <div className="w-full h-full rounded-[1.5rem] overflow-hidden shadow-[inset_0_4px_20px_rgba(100,60,60,0.3)] bg-gradient-to-br from-[#FDF9F8] to-[#EAD0CC] relative flex items-center justify-center transition-transform duration-500 group-hover:scale-[1.02]">
                     <img
                       src={avatarUrl}
@@ -320,15 +304,12 @@ export default function HeroSection() {
                   <div className="absolute inset-0 bg-gradient-to-t from-[#B97A70]/30 to-transparent mix-blend-overlay" />
                 </div>
 
-                {/* Floating badge */}
+                {/* Floating badge - one-time animation only */}
                 <motion.div
-                  animate={{ y: [0, -6, 0] }}
-                  transition={{
-                    duration: 4,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                  className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 bg-white/80 backdrop-blur-xl rounded-full px-6 py-3 shadow-[0_15px_30px_rgba(140,90,90,0.3),_inset_0_2px_5px_rgba(255,255,255,0.8)] border border-white/50 whitespace-nowrap"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 1.5, duration: 0.6 }}
+                  className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 bg-white/80 backdrop-blur-md rounded-full px-6 py-3 shadow-[0_15px_30px_rgba(140,90,90,0.3),_inset_0_2px_5px_rgba(255,255,255,0.8)] border border-white/50 whitespace-nowrap"
                 >
                   <p className="text-xs sm:text-sm font-semibold text-[#6B5A57] flex items-center gap-2">
                     <span className={`text-lg leading-none filter drop-shadow-[0_0_5px_rgba(185,122,112,0.8)] ${profile?.is_available === false ? "text-stone-400" : "text-[#B97A70]"}`}>
