@@ -72,7 +72,7 @@ export default function AboutSection() {
       {/* Decorative Diamonds */}
       <DecorativeDiamond
         type={1}
-        className="top-[10%] left-[5%] w-32 h-32 lg:w-48 lg:h-48"
+        className="top-[5%] left-[5%] w-20 h-20 lg:w-28 lg:h-28"
         yRange={25}
         rotateRange={15}
       />

@@ -94,7 +94,7 @@ export default function ContactSection() {
       {/* Decorative Diamonds */}
       <DecorativeDiamond
         type={1}
-        className="top-[10%] left-[8%]"
+        className="top-[10%] left-[8%] w-20 h-20 lg:w-28 lg:h-28"
         yRange={12}
         rotateRange={15}
       />
